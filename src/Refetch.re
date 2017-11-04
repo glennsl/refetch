@@ -1,13 +1,7 @@
 open! Rebase;
+module Body = Refetch__Body;
 module Headers = Refetch__Headers;
-
-module Body = {
-  type t = Fetch.BodyInit.t;
-
-  external fromString : string => t = "%identity";
-  external fromJson : Js.Json.t => t = "%identity";
-  external fromJsObj : Js.t({..}) => t = "%identity";
-};
+module Response = Refetch__Response;
 
 let _encodeMethod =
   Fetch.(

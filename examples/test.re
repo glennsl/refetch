@@ -6,7 +6,7 @@
 
 Js.Promise.(
   Refetch.fetch("http://httpbin.org/get")
-  |> then_(Fetch.Response.text)
+  |> then_(Refetch.Response.text)
   |> then_((text) => Js.log(text) |> resolve)
   |> ignore
 );
