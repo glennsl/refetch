@@ -1,4 +1,5 @@
 open! Rebase;
+module Headers = Refetch__Headers;
 
 module Body = {
   type t = Fetch.BodyInit.t;
@@ -6,20 +7,6 @@ module Body = {
   external fromString : string => t = "%identity";
   external fromJson : Js.Json.t => t = "%identity";
   external fromJsObj : Js.t({..}) => t = "%identity";
-};
-
-module Headers = {
-  type t =
-    | ContentType(string)
-    | Custom(string, string);
-
-  let _encode = (headers) =>
-    headers |> List.map(
-              fun | ContentType(value) => ("Content-Type", value)
-                  | Custom(name, value) => (name, value))
-            |> Js.Dict.fromList
-            |> Obj.magic
-            |> Fetch.HeadersInit.make;
 };
 
 let _encodeMethod =
@@ -33,21 +20,22 @@ let _encodeMethod =
         | `OPTIONS => Options
         | `TRACE => Trace
         | `PATCH => Patch
-        | `Other(string) => Other(string)
+        | `OtherMethod(string) => Other(string)
   );
 
-let _request = (~method, ~body, ~headers) =>
+let _request = (~method, ~body, ~mode, ~headers) =>
   Fetch.RequestInit.make(
     ~method_=?Option.map(_encodeMethod, method),
-    ~body=?body,
+    ~body?,
+    ~mode?,
     ~headers=?Option.map(Headers._encode, headers),
   ());
 
-let request = (~method=?, ~body=?, ~headers=?, url) =>
-  Fetch.fetchWithInit(url, _request(~method, ~body, ~headers));
+let fetch = (~method=?, ~body=?, ~mode=?, ~headers=?, url) =>
+  Fetch.fetchWithInit(url, _request(~method, ~body, ~mode, ~headers));
 
 let get = (~headers=?, url) =>
-  request(~method=`GET, ~headers?, url);
+  fetch(~method=`GET, ~headers?, url);
 
 let post = (~headers=?, url, body) =>
-  request(~method=`POST, ~headers?, ~body, url);
+  fetch(~method=`POST, ~headers?, ~body, url);
