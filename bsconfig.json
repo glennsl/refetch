@@ -1,0 +1,22 @@
+{
+  "name": "refetch",
+  "version": "0.1.0",
+  "refmt": 3,
+  "sources": [
+    "src", {
+      "dir": "examples",
+      "type": "dev"
+    }, {
+      "dir": "__tests__",
+      "type": "dev"
+    }
+  ],
+  "bs-dependencies" : [
+    "bs-fetch",
+    "reason-rebase"
+  ],
+  "bs-dev-dependencies" : [
+    "bs-json",
+    "bs-jest"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "refetch",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w",
+    "clean": "bsb -clean-world",
+    "test": "bsb -make-world && jest",
+    "test:watch": "jest --watchAll"
+  },
+  "keywords": [
+    "BuckleScript"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bs-fetch":"^0.2.0",
+    "reason-rebase": "^0.1.0"
+  },
+  "devDependencies": {
+    "bs-platform": "2.0.0",
+    "bs-json": "^0.2.3",
+    "bs-jest":"^0.2.0",
+    "isomorphic-fetch": "^2.2.1",
+    "debug-http": "^1.1.0",
+    "nock": "^9.0.27"
+  }
+}
