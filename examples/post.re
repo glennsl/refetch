@@ -1,14 +1,14 @@
 [%%raw {|require('isomorphic-fetch')|}];
-
 let get = () =>
-  Js.Promise.(
-  Refetch.(
-    post("https://httpbin.org/post",
-      ~headers=[Headers.ContentType("application/x-www-form-urlencoded; charset=UTF-8")],
-      /*~body=Body.fromJsObj({ "userId": 4, "title": "foo" }))*/
-      Body.fromString("title=foobar&body=bar&userId=1"))
-    |> then_(Fetch.Response.text)
-    |> then_((text) => Js.log(text) |> resolve)
+  Js.Promise.(Refetch.(
+    request(`POST)
+      |> Request.header(`ContentType("application/x-www-form-urlencoded; charset=UTF-8"))
+      |> Request.body(`String("title=foobar&body=bar&userId=1"))
+    |> fetch("https://httpbin.org/post")
+      |> then_(
+         fun | Js.Result.Ok(response) => Response.text(response)
+             | _ => "oops!" |> resolve)
+      |> then_((text) => Js.log(text) |> resolve)
     |> ignore
   ));
 

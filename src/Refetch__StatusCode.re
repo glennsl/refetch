@@ -1,73 +1,10 @@
-type t = [
-  | `Continue
-  | `SwitchingProtocols
-  | `Processing
-  | `OK
-  | `Created
-  | `Accepted
-  | `NonAuthoritativeInformation
-  | `NoContent
-  | `ResetContent
-  | `PartialContent
-  | `MultiStatus
-  | `AlreadyReported
-  | `IMUsed
-  | `MultipleChoices
-  | `MovedPermanently
-  | `Found
-  | `SeeOther
-  | `NotModified
-  | `UseProxy
- /* `SwitchProxy -- No longer used */
-  | `TemporaryRedirect
-  | `PermanentRedirect
-  | `BadRequest
-  | `Unauthorized
-  | `PaymentRequired
-  | `Forbidden
-  | `NotFound
-  | `MethodNotAllowed
-  | `NotAcceptable
-  | `ProxyAuthenticationRequired
-  | `RequestTimeout
-  | `Conflict
-  | `Gone
-  | `LengthRequired
-  | `PreconditionFailed
-  | `PayloadTooLarge
-  | `UriTooLong
-  | `UnsupportedMediaType
-  | `RangeNotSatisfiable
-  | `ExpectationFailed
-  | `ImATeapot
-  | `MisdirectedRequest
-  | `UnprocessableEntity
-  | `Locked
-  | `FailedDependency
-  | `UpgradeRequired
-  | `PreconditionRequired
-  | `TooManyRequests
-  | `RequestHeaderFieldsTooLarge
-  | `UnavailableForLegalReasons
-  | `InternalServerError
-  | `NotImplemented
-  | `BadGateway
-  | `ServiceUnavailable
-  | `GatewayTimeout
-  | `HttpVersionNotSupported
-  | `VariantAlsoNegotiates
-  | `InsufficientStorage
-  | `LoopDetected
-  | `NotExtended
-  | `NetworkAuthenticationRequired
-  | `Unregistered(int)
-];
-
+/* abstracted away by fetch
 type informational = [
   | `Continue
   | `SwitchingProtocols
   | `Processing
 ];
+*/
 
 type success = [
   | `OK
@@ -82,6 +19,7 @@ type success = [
   | `IMUsed
 ];
 
+/* abstracted away by fetch
 type redirection = [
   | `MultipleChoices
   | `MovedPermanently
@@ -89,9 +27,11 @@ type redirection = [
   | `SeeOther
   | `NotModified
   | `UseProxy
+ /* `SwitchProxy -- No longer used */
   | `TemporaryRedirect
   | `PermanentRedirect
 ];
+*/
 
 type clientError = [
   | `BadRequest
@@ -138,10 +78,19 @@ type serverError = [
   | `NetworkAuthenticationRequired
 ];
 
-let toInt =
-  fun | `Continue => 100
+type t = [
+  | success
+  | clientError
+  | serverError
+  | `Unknown(int)
+];
+
+let toInt: t => int =
+  fun /*
+      | `Continue => 100
       | `SwitchingProtocols => 101
       | `Processing => 102
+      */
       | `OK => 200
       | `Created => 201
       | `Accepted => 202
@@ -152,6 +101,7 @@ let toInt =
       | `MultiStatus => 207
       | `AlreadyReported => 208
       | `IMUsed => 226
+      /*
       | `MultipleChoices => 300
       | `MovedPermanently => 301
       | `Found => 302
@@ -160,6 +110,7 @@ let toInt =
       | `UseProxy => 305
       | `TemporaryRedirect => 307
       | `PermanentRedirect => 308
+      */
       | `BadRequest => 400
       | `Unauthorized => 401
       | `PaymentRequired => 402
@@ -199,12 +150,14 @@ let toInt =
       | `LoopDetected => 508
       | `NotExtended => 510
       | `NetworkAuthenticationRequired => 511
-      | `Unregistered(n) => n;
+      | `Unknown(n) => n;
 
-let fromInt =
-  fun | 100 => `Continue
+let fromInt: int => t =
+  fun /*
+      | 100 => `Continue
       | 101 => `SwitchingProtocols
       | 102 => `Processing
+      */
       | 200 => `OK
       | 201 => `Created
       | 202 => `Accepted
@@ -215,6 +168,7 @@ let fromInt =
       | 207 => `MultiStatus
       | 208 => `AlreadyReported
       | 226 => `IMUsed
+      /*
       | 300 => `MultipleChoices
       | 301 => `MovedPermanently
       | 302 => `Found
@@ -223,6 +177,7 @@ let fromInt =
       | 305 => `UseProxy
       | 307 => `TemporaryRedirect
       | 308 => `PermanentRedirect
+      */
       | 400 => `BadRequest
       | 401 => `Unauthorized
       | 402 => `PaymentRequired

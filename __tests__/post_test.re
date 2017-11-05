@@ -13,8 +13,10 @@ describe("get", () => {
   testAsync("get", (done_) => {
     let _: Nock.scope = scope |> Nock.post("/") |> Nock.reply(200, { "foo": 42 });
 
-    Refetch.post("http://example.com", Refetch.Body.fromString("test"))
-    |> Js.Promise.(then_((_) => done_(expect(Nock.isDone(scope)) |> toBe(true)) |> resolve))
-    |> ignore;
+    Js.Promise.(Refetch.(
+      post("http://example.com", `String("test"))
+      |> then_((_) => done_(expect(Nock.isDone(scope)) |> toBe(true)) |> resolve)
+      |> ignore
+    ));
   })
 });

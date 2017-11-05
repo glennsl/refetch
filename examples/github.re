@@ -1,5 +1,4 @@
 [%%raw {|require('isomorphic-fetch')|}];
-
 /* given an array of repositories object as a JSON string */
 /* returns an array of names */
 let names = (text) =>
@@ -9,15 +8,17 @@ let names = (text) =>
 /* fetch all public repositories of user [reasonml-community] */
 /* print their names to the console */
 let printGithubRepos = () =>
-  Js.Promise.(
-    Refetch.get("https://api.github.com/users/reasonml-community/repos")
-    |> then_(Fetch.Response.text)
+  Js.Promise.(Refetch.(
+    get("https://api.github.com/users/reasonml-community/repos")
+    |> then_(
+       fun | Js.Result.Ok(response) => Response.text(response)
+           | _ => "oops!" |> resolve)
     |> then_((text) =>
        text |> names
             |> Array.iter(Js.log)
             |> resolve)
     |> ignore
-  );
+  ));
 
 let () =
   printGithubRepos();

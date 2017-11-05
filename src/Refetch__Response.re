@@ -1,21 +1,17 @@
-module StatusCode = Refetch__StatusCode;
+open! Rebase;
+
+module Body = Refetch__Body;
 module Headers = Refetch__Headers;
+module StatusCode = Refetch__StatusCode;
 
 type t = Fetch.Response.t;
 
-/*
-let headers = (response) =>
-*/
+let _make = (res) =>
+  switch (Fetch.Response.status(res)) {
+  | n when n >= 200 && n <= 299 => Js.Result.Ok(res)
+  | n when n >= 400 && n <= 599 => Js.Result.Error(res)
+  | _ => failwith("TODO: Unknown status")
+  };
 
-let status = (response) =>
-  response |> Fetch.Response.status
-           |> StatusCode.fromInt;
-
-let ok =
-  Fetch.Response.ok;
-
-let json =
-  Fetch.Response.json;
-
-let text =
-  Fetch.Response.text;
+let text = (response) =>
+  response |> Fetch.Response.text;
