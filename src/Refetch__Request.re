@@ -68,9 +68,27 @@ let _encodeMethod =
         | `OtherMethod(string) => Other(string)
   );
 
+[@bs.val] external encodeURIComponent : string => string = "";
+
+let _buildUrl = (url, params) => {
+  let encodeParam = ((key, value)) =>
+    encodeURIComponent(key) ++ "=" ++ encodeURIComponent(value);
+
+  let joinParams =
+    fun | [] => ""
+        | [first, ...rest] =>
+          List.reduce((acc, param) => {j|$acc&$param|j}, first, rest);
+
+  let params =
+      params |> List.map(encodeParam)
+             |> joinParams;
+  
+  {j|$url?$params|j}
+};
+
 let _toFetchRequest = (request) =>
   Fetch.Request.makeWithInit(
-    request.url,
+    _buildUrl(request.url, request.queryParams),
     Fetch.RequestInit.make(
       ~method_=_encodeMethod(request.method),
       ~body=?request.body,

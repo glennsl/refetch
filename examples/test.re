@@ -25,6 +25,8 @@ Resync.(Refetch.(
 /* advanced */
 Resync.(Refetch.(
   request(`POST, "http://httpbin.org/post")
+    |> Request.param("sort", "DESC")
+    |> Request.param("filter", "foo=true")
     |> Request.header(`ContentType("application/json"))
     |> Request.payload(`Json(Json.Encode.(object_([
          ("foo", int(42)),
