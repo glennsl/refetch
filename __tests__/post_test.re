@@ -13,10 +13,9 @@ describe("get", () => {
   testAsync("get", (done_) => {
     let _: Nock.scope = scope |> Nock.post("/") |> Nock.reply(200, { "foo": 42 });
 
-    Js.Promise.(Refetch.(
+    Resync.(Refetch.(
       post("http://example.com", `String("test"))
-      |> then_((_) => done_(expect(Nock.isDone(scope)) |> toBe(true)) |> resolve)
-      |> ignore
+      |> Future.whenResolved((_) => done_(expect(Nock.isDone(scope)) |> toBe(true)))
     ));
   })
 });

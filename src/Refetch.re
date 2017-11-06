@@ -9,7 +9,8 @@ let request = Request.make;
 
 let fetch = (url, request) =>
   Fetch.fetchWithInit(url, Request._toRequestInit(request))
-  |> Js.Promise.then_(res => res |> Response._make |> Js.Promise.resolve);
+  |> Js.Promise.then_(res => res |> Response._make |> Js.Promise.resolve)
+  |> Resync.Future.fromJSPromise;
 
 let get = (url) =>
   request(`GET) |> fetch(url);

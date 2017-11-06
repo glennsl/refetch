@@ -8,16 +8,14 @@ let names = (text) =>
 /* fetch all public repositories of user [reasonml-community] */
 /* print their names to the console */
 let printGithubRepos = () =>
-  Js.Promise.(Refetch.(
+  Resync.(Refetch.(
     get("https://api.github.com/users/reasonml-community/repos")
-    |> then_(
+    |> Future.flatMap(
        fun | Js.Result.Ok(response) => Response.text(response)
-           | _ => "oops!" |> resolve)
-    |> then_((text) =>
+           | _ => Future.from("oops!"))
+    |> Future.whenResolved((text) =>
        text |> names
-            |> Array.iter(Js.log)
-            |> resolve)
-    |> ignore
+            |> Array.iter(Js.log))
   ));
 
 let () =

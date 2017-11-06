@@ -5,34 +5,31 @@
 |}];
 
 /* simple get */
-Js.Promise.(Refetch.(
+Resync.(Refetch.(
   get("http://httpbin.org/get")
-  |> then_(
+  |> Future.flatMap(
      fun | Js.Result.Ok(response) => Response.text(response)
-         | _ => "oops!" |> resolve)
-  |> then_((text) => Js.log(text) |> resolve)
-  |> ignore
+         | _ => "oops!" |> Future.from)
+  |> Future.whenResolved((text) => Js.log(text))
 ));
 
 /* simple post */
-Js.Promise.(Refetch.(
+Resync.(Refetch.(
   post("http://httpbin.org/post", `String("datathings"))
-  |> then_(
+  |> Future.flatMap(
      fun | Js.Result.Ok(response) => Response.text(response)
-         | _ => "oops!" |> resolve)
-  |> then_((text) => Js.log(text) |> resolve)
-  |> ignore
+         | _ => "oops!" |> Future.from)
+  |> Future.whenResolved((text) => Js.log(text))
 ));
 
 /* advanced */
-Js.Promise.(Refetch.(
+Resync.(Refetch.(
   request(`POST)
     |> Request.header(`ContentType("application/json"))
     |> Request.body(`String("fooyah!"))
   |> fetch("http://httpbin.org/post")
-    |> then_(
+    |> Future.flatMap(
        fun | Js.Result.Ok(response) => Response.text(response)
-           | _ => "oops!" |> resolve)
-    |> then_((text) => Js.log(text) |> resolve)
-  |> ignore
+           | _ => Future.from("oops!"))
+    |> Future.whenResolved((text) => Js.log(text))
 ));

@@ -14,4 +14,5 @@ let _make = (res) =>
   };
 
 let text = (response) =>
-  response |> Fetch.Response.text;
+  response |> Fetch.Response.text
+           |> Resync.Future.fromJSPromise;

@@ -1,10 +1,9 @@
 [%%raw {|require('isomorphic-fetch')|}];
 
-Js.Promise.(Refetch.(
+Resync.(Refetch.(
   get("http://httpbin.org/get")
-  |> then_(
+  |> Future.flatMap(
      fun | Js.Result.Ok(response) => Response.text(response)
-         | _ => "oops!" |> resolve)
-  |> then_((text) => Js.log(text) |> resolve)
-  |> ignore
+         | _ => "oops!" |> Future.from)
+  |> Future.whenResolved((text) => Js.log(text))
 ));
