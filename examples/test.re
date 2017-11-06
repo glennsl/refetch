@@ -3,13 +3,13 @@
   const debugHttp = require('debug-http');
   debugHttp();
 |}];
-
+/*
 /* simple get */
 Resync.(Refetch.(
   get("http://httpbin.org/get")
   |> Future.flatMap(
-     fun | Js.Result.Ok(response) => Response.text(response)
-         | _ => "oops!" |> Future.from)
+     fun | Response.Ok(_, response) => Response.text(response)
+         | Response.Error({ reason }, _) => Future.from(reason))
   |> Future.whenResolved((text) => Js.log(text))
 ));
 
@@ -17,19 +17,22 @@ Resync.(Refetch.(
 Resync.(Refetch.(
   post("http://httpbin.org/post", `String("datathings"))
   |> Future.flatMap(
-     fun | Js.Result.Ok(response) => Response.text(response)
-         | _ => "oops!" |> Future.from)
+     fun | Response.Ok(_, response) => Response.text(response)
+         | Response.Error({ reason }, _) => Future.from(reason))
   |> Future.whenResolved((text) => Js.log(text))
 ));
-
+*/
 /* advanced */
 Resync.(Refetch.(
-  request(`POST)
+  request(`POST, "http://httpbin.org/post")
     |> Request.header(`ContentType("application/json"))
-    |> Request.body(`String("fooyah!"))
-  |> fetch("http://httpbin.org/post")
+    |> Request.payload(`Json(Json.Encode.(object_([
+         ("foo", int(42)),
+         ("bar", string("baz"))
+       ]))))
+  |> fetch
     |> Future.flatMap(
-       fun | Js.Result.Ok(response) => Response.text(response)
-           | _ => Future.from("oops!"))
+       fun | Response.Ok(_, response) => Response.text(response)
+           | Response.Error({ reason }, _) => Future.from(reason))
     |> Future.whenResolved((text) => Js.log(text))
 ));

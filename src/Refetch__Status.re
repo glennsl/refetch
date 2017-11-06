@@ -1,12 +1,12 @@
 /* abstracted away by fetch
-type informational = [
+type informationalCode = [
   | `Continue
   | `SwitchingProtocols
   | `Processing
 ];
 */
 
-type success = [
+type successCode = [
   | `OK
   | `Created
   | `Accepted
@@ -20,7 +20,7 @@ type success = [
 ];
 
 /* abstracted away by fetch
-type redirection = [
+type redirectionCode = [
   | `MultipleChoices
   | `MovedPermanently
   | `Found
@@ -33,7 +33,7 @@ type redirection = [
 ];
 */
 
-type clientError = [
+type clientErrorCode = [
   | `BadRequest
   | `Unauthorized
   | `PaymentRequired
@@ -64,7 +64,7 @@ type clientError = [
   | `UnavailableForLegalReasons
 ];
 
-type serverError = [
+type serverErrorCode = [
   | `InternalServerError
   | `NotImplemented
   | `BadGateway
@@ -78,14 +78,19 @@ type serverError = [
   | `NetworkAuthenticationRequired
 ];
 
-type t = [
-  | success
-  | clientError
-  | serverError
+type code = [
+  | successCode
+  | clientErrorCode
+  | serverErrorCode
   | `Unknown(int)
 ];
 
-let toInt: t => int =
+type t = {
+  code: code,
+  reason: string
+};
+
+let codeToInt: code => int =
   fun /*
       | `Continue => 100
       | `SwitchingProtocols => 101
@@ -152,7 +157,7 @@ let toInt: t => int =
       | `NetworkAuthenticationRequired => 511
       | `Unknown(n) => n;
 
-let fromInt: int => t =
+let codeFromInt: int => code =
   fun /*
       | 100 => `Continue
       | 101 => `SwitchingProtocols

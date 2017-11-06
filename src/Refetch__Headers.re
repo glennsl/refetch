@@ -181,6 +181,7 @@ type t = [
 let _encode = (headers) =>
   headers |> List.map(
             fun | `ContentType(mime) => ("Content-Type", Mime.toString(mime))
+                | `ContentLength(length) => ("Content-Length", string_of_int(length))
                 | `Raw(name, value) => (name, value)
                 | _ => failwith("TODO"))
           |> Js.Dict.fromList

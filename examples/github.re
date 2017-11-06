@@ -11,8 +11,12 @@ let printGithubRepos = () =>
   Resync.(Refetch.(
     get("https://api.github.com/users/reasonml-community/repos")
     |> Future.flatMap(
-       fun | Js.Result.Ok(response) => Response.text(response)
-           | _ => Future.from("oops!"))
+       fun | Response.Ok(_, response) =>
+             Response.text(response)
+
+           | Response.Error({ reason }, _) =>
+             Future.from(reason))
+
     |> Future.whenResolved((text) =>
        text |> names
             |> Array.iter(Js.log))
