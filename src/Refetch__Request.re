@@ -4,20 +4,32 @@ module Body = Refetch__Body;
 module Headers = Refetch__Headers;
 module Mime = Refetch__Mime;
 
+type payload = [
+  /*
+  | `Blob
+  | `BufferSource
+  | `FormData
+  | `URLSearchParams
+  | `ReadableStream
+  */
+  | `String(string)
+  | `Json(Js.Json.t)
+];
+
 type t = {
   url: string,
   method: Headers.method,
   queryParams: list((string, string)),
   headers: list(Headers.t),
-  body: option(Body.t)
+  body: option(payload)
 };
 
-let make = (method, url) => {
+let make = (method, ~queryParams=[], ~headers=[], ~body=?, url) => {
   url,
   method,
-  queryParams: [],
-  headers: [],
-  body: None
+  queryParams,
+  headers,
+  body
 };
 
 let param = (key, value, request) => {
@@ -41,13 +53,12 @@ let payload = (payload, request) =>
   */
   | `String content => {
     ...request, /* fetch will set Content-Type to text/plain for us */
-    body: Some(content |> Fetch.BodyInit.make)
+    body: Some(payload)
   }
  
   | `Json content => {
-    ...header(`ContentType(Mime.json), request),
-    body: Some(content |> Js.Json.stringify
-                       |> Fetch.BodyInit.make)
+    ...request |> header(`ContentType(Mime.json)),
+    body: Some(payload)
   }
 /*
   | `Dict body => 
@@ -91,7 +102,12 @@ let _toFetchRequest = (request) =>
     _buildUrl(request.url, request.queryParams),
     Fetch.RequestInit.make(
       ~method_=_encodeMethod(request.method),
-      ~body=?request.body,
+      ~body=?Option.map(
+        fun | `String content => content |> Fetch.BodyInit.make
+            | `Json content   => content |> Js.Json.stringify
+                                         |> Fetch.BodyInit.make,
+        request.body
+      ),
       ~headers=Headers._encode(request.headers),
     ())
   );
