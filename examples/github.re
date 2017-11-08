@@ -66,12 +66,9 @@ let printRepos = (repos) => {
   
   let stats = 
     repos |> List.map((repo) => [
-               string_of_int(repo.stars),
-               "stars   ",
-               string_of_int(repo.forks),
-               "forks   ",
-               string_of_int(repo.openIssues),
-               "open issues"
+               string_of_int(repo.stars), "stars   ",
+               string_of_int(repo.forks), "forks   ",
+               string_of_int(repo.openIssues), "open issues"
              ])
           |> columnify;
 
