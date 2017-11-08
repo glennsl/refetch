@@ -5,6 +5,15 @@ Refetch is a strongly typed and immutable API built on top of the `fetch` standa
 ## Example
 
 ```reason
+/* Simple GET */
+Resync.(Refetch.(
+  get("http://httpbin.org/get")
+  |> Future.flatMap(
+     fun | Response.Ok(_, response) => Response.text(response)
+         | _ => "oops!" |> Future.from)
+  |> Future.whenResolved(Js.log)
+));
+
 /* builder functions */
 Resync.(Refetch.(
   request(`POST, "https://httpbin.org/post")

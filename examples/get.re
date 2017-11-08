@@ -5,5 +5,5 @@ Resync.(Refetch.(
   |> Future.flatMap(
      fun | Response.Ok(_, response) => Response.text(response)
          | _ => "oops!" |> Future.from)
-  |> Future.whenResolved((text) => Js.log(text))
+  |> Future.whenResolved(Js.log)
 ));
