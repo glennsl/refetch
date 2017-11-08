@@ -24,7 +24,9 @@ Resync.(Refetch.(
 */
 /* advanced */
 Resync.(Refetch.(
-  request(`POST, "http://httpbin.org/post")
+  /*request(`POST, "http://httpbin.org/post")*/
+  /*equest(`POST, "https://requestb.in/thog7oth")*/
+  request(`POST, "http://putsreq.com/FFB540W0YeOnQjBMOKVq")
     |> Request.param("sort", "DESC")
     |> Request.param("filter", "foo=true")
     |> Request.header(`ContentType("application/json"))

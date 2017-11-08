@@ -29,3 +29,7 @@ let _make = (res) => {
 let text = (response) =>
   response |> Fetch.Response.text
            |> Resync.Future.fromJSPromise;
+
+let json = (response) =>
+  response |> Fetch.Response.json
+           |> Resync.Future.fromJSPromise;
