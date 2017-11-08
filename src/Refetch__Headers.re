@@ -1,9 +1,11 @@
 module Cookie = Refetch__Cookie;
 module Mime = Refetch__Mime;
+module Utils = Refetch__Utils;
 
-type authorizationScheme =
-  | Basic(string)
-  | Bearer(string, option(string));
+type authorizationScheme = [
+  | `Basic(string, string)
+  | `Bearer(string)
+];
 
 type cacheDirective =
   | NoCache
@@ -180,8 +182,26 @@ type t = [
 
 let _encode = (headers) =>
   headers |> List.map(
-            fun | `ContentType(mime) => ("Content-Type", Mime.toString(mime))
-                | `ContentLength(length) => ("Content-Length", string_of_int(length))
+            fun | `Authorization(scheme) => {
+                  let value = switch (scheme) {
+                  
+                    | `Basic(username, password) =>
+                      let encoded = {j|$username:$password|j} |> Utils.btoa;
+                      {j|Basic $encoded|j}
+
+                    | `Bearer(token) =>
+                      {j|Bearer $token|j}
+                  };
+
+                  ("Authorization", value)
+                }
+
+                | `ContentType(mime) =>
+                  ("Content-Type", Mime.toString(mime))
+
+                | `ContentLength(length) =>
+                  ("Content-Length", string_of_int(length))
+                  
                 | `Raw(name, value) => (name, value)
                 | _ => failwith("TODO"))
           |> Js.Dict.fromList

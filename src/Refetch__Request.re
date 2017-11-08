@@ -42,6 +42,9 @@ let header = (header, request) => {
   headers: [header, ...request.headers]
 };
 
+let basicAuthentication = (username, password, request) =>
+  header(`Authorization(`Basic(username, password)), request);
+
 let payload = (payload, request) =>
   switch payload {
   /*
@@ -101,14 +104,20 @@ let _toFetchRequest = (request) =>
   Fetch.Request.makeWithInit(
     _buildUrl(request.url, request.queryParams),
     Fetch.RequestInit.make(
-      ~method_=_encodeMethod(request.method),
-      ~body=?Option.map(
-        fun | `String content => content |> Fetch.BodyInit.make
-            | `Json content   => content |> Js.Json.stringify
-                                         |> Fetch.BodyInit.make,
-        request.body
-      ),
-      ~headers=Headers._encode(request.headers),
+      ~method_ =
+        _encodeMethod(request.method),
+
+      ~body =
+        ?Option.map(
+          fun | `String content => content |> Fetch.BodyInit.make
+              | `Json content   => content |> Js.Json.stringify
+                                          |> Fetch.BodyInit.make,
+          request.body
+        ),
+
+      ~headers =
+        request.headers |> List.reverse
+                        |> Headers._encode,
     ())
   );
 

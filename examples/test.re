@@ -24,11 +24,13 @@ Resync.(Refetch.(
 */
 /* advanced */
 Resync.(Refetch.(
-  /*request(`POST, "http://httpbin.org/post")*/
+  /*request(`GET, "http://httpbin.org/basic-auth/boo/yah")*/
   /*equest(`POST, "https://requestb.in/thog7oth")*/
   request(`POST, "http://putsreq.com/FFB540W0YeOnQjBMOKVq")
     |> Request.param("sort", "DESC")
     |> Request.param("filter", "foo=true")
+    |> Request.basicAuthentication("boo", "yah")
+    |> Request.header(`Authorization(`Bearer("jklcolid")))
     |> Request.header(`ContentType("application/json"))
     |> Request.payload(`Json(Json.Encode.(object_([
          ("foo", int(42)),
