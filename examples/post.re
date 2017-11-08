@@ -9,7 +9,7 @@ Resync.(Refetch.(
     |> Future.flatMap(
         fun | Response.Ok(_, response) => Response.text(response)
             | Response.Error({ reason }, _) => Future.from(reason))
-    |> Future.whenResolved((text) => Js.log(text))
+    |> Future.whenResolved(Js.log)
 ));
 
 /* labeled arguments */
@@ -21,5 +21,5 @@ Resync.(Refetch.(
     |> Future.flatMap(
         fun | Response.Ok(_, response) => Response.text(response)
             | Response.Error({ reason }, _) => Future.from(reason))
-    |> Future.whenResolved((text) => Js.log(text))
+    |> Future.whenResolved(Js.log)
 ));
