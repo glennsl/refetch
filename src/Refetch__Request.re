@@ -51,12 +51,12 @@ let payload = (payload, request) =>
   | `URLSearchParams
   | `ReadableStream
   */
-  | `String content => {
+  | `String _ => {
     ...request, /* fetch will set Content-Type to text/plain for us */
     body: Some(payload)
   }
  
-  | `Json content => {
+  | `Json _ => {
     ...request |> header(`ContentType(Mime.json)),
     body: Some(payload)
   }

@@ -1,12 +1,3 @@
-let string_length = String.length;
-let padEnd = (n, c, s) => s ++ String.make(max(0, n - String.length(s)), c);
-let rec zip = (xs, ys) =>
-  switch (xs, ys) {
-  | ([], _)
-  | (_, []) => []
-  | ([x, ...xs], [y, ...ys]) => [(x,y), ...zip(xs, ys)]
-  };
-
 open Rebase;
 open Resync;
 
@@ -39,16 +30,16 @@ module Decode = {
 
 let columnify = (rows) => {
   let maxLengths =
-    rows |> List.map((columns) => columns |> List.map(string_length))
+    rows |> List.map((columns) => columns |> List.map(String.length))
          |> fun | [] => []
                 | [first, ...rest] =>
                   List.reduce((maxs, lengths) =>
-                    lengths |> zip(maxs) 
+                    lengths |> List.zip(maxs) 
                             |> List.map(((a, b)) => Js.Math.max_int(a, b)), first, rest);
 
   rows |> List.map((columns) =>
-          columns |> zip(maxLengths)
-                  |> List.map(((l, s)) => padEnd(l, ' ', s))
+          columns |> List.zip(maxLengths)
+                  |> List.map(((l, s)) => String.padEnd(l, " ", s))
                   |> List.reduce((s, c) => s ++ " " ++ c, ""))
 };
 
@@ -84,11 +75,13 @@ let printRepos = (repos) => {
              ])
           |> columnify;
 
-  zip(headers, stats) |> List.forEach(((header, stats)) => {
-                           Js.log(header);
-                           Js.log(stats);
-                           Js.log("");
-                         });
+  List.zip(headers, stats)
+    |> List.forEach(
+       ((header, stats)) => {
+         Js.log(header);
+         Js.log(stats);
+         Js.log("");
+       });
 };
 
 let () =
