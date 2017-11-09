@@ -1,3 +1,5 @@
+open Rebase;
+
 let btoa: string => string = [%raw {|
   function () {
     if (btoa) return btoa;
@@ -8,3 +10,9 @@ let btoa: string => string = [%raw {|
     }
   }()
 |}];
+
+module List = {
+  let reduceOr : ('b, ('b, 'a) => 'b, list('a)) => 'b = (default, f) =>
+    fun | [] => default
+        | [first, ...rest] => List.reduce(f, first, rest);
+};

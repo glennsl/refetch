@@ -3,6 +3,7 @@ open! Rebase;
 module Body = Refetch__Body;
 module Headers = Refetch__Headers;
 module Mime = Refetch__Mime;
+module Utils = Refetch__Utils;
 
 type payload = [
   /*
@@ -14,6 +15,7 @@ type payload = [
   */
   | `String(string)
   | `Json(Js.Json.t)
+  | `Form(list((string, string)))
 ];
 
 type t = {
@@ -63,6 +65,12 @@ let payload = (payload, request) =>
     ...request |> header(`ContentType(Mime.json)),
     body: Some(payload)
   }
+
+  | `Form _ => {
+    ...request |> header(`ContentType(Mime.form)),
+    body: Some(payload)
+
+  }
 /*
   | `Dict body => 
   */
@@ -88,10 +96,8 @@ let _buildUrl = (url, params) => {
   let encodeParam = ((key, value)) =>
     encodeURIComponent(key) ++ "=" ++ encodeURIComponent(value);
 
-  let joinParams =
-    fun | [] => ""
-        | [first, ...rest] =>
-          List.reduce((acc, param) => {j|$acc&$param|j}, first, rest);
+  let joinParams = (params) =>
+    params |> Utils.List.reduceOr("", (acc, param) => {j|$acc&$param|j});
 
   let params =
       params |> List.map(encodeParam)
@@ -109,10 +115,19 @@ let _toFetchRequest = (request) =>
 
       ~body =
         ?Option.map(
-          fun | `String content => content |> Fetch.BodyInit.make
-              | `Json content   => content |> Js.Json.stringify
-                                          |> Fetch.BodyInit.make,
-          request.body
+          fun | `String content =>
+                content |> Fetch.BodyInit.make
+
+              | `Json content =>
+                content |> Js.Json.stringify
+                        |> Fetch.BodyInit.make
+
+              | `Form pairs =>
+                pairs |> List.map(((k, v)) => {j|$k=$v|j})
+                      |> Utils.List.reduceOr("", (acc, item) => {j|$acc&$item|j})
+                      |> Fetch.BodyInit.make
+
+          ,request.body
         ),
 
       ~headers =

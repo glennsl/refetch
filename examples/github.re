@@ -1,5 +1,6 @@
 open Rebase;
 open Resync;
+module Utils = Refetch__Utils;
 
 [%%raw {|require('isomorphic-fetch')|}];
 
@@ -31,11 +32,9 @@ module Decode = {
 let columnify = (rows) => {
   let maxLengths =
     rows |> List.map((columns) => columns |> List.map(String.length))
-         |> fun | [] => []
-                | [first, ...rest] =>
-                  List.reduce((maxs, lengths) =>
-                    lengths |> List.zip(maxs) 
-                            |> List.map(((a, b)) => Js.Math.max_int(a, b)), first, rest);
+         |> Utils.List.reduceOr([], (maxs, lengths) =>
+            lengths |> List.zip(maxs) 
+                    |> List.map(((a, b)) => Js.Math.max_int(a, b)));
 
   rows |> List.map((columns) =>
           columns |> List.zip(maxLengths)
