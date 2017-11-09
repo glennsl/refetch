@@ -26,6 +26,19 @@ let _make = (res) => {
   }
 };
 
+let body = (response) =>
+  response |> Fetch.Response.body;
+
+/* Not supported by node-fetch?
+let arrayBuffer = (response) =>
+  response |> Fetch.Response.arrayBuffer
+           |> Resync.Future.fromJSPromise;
+
+let blob = (response) =>
+  response |> Fetch.Response.blob
+           |> Resync.Future.fromJSPromise;
+*/
+
 let text = (response) =>
   response |> Fetch.Response.text
            |> Resync.Future.fromJSPromise;
