@@ -16,6 +16,7 @@ type payload = [
   | `String(string)
   | `Json(Js.Json.t)
   | `Form(list((string, string)))
+  | `Multipart(string, list((list(Headers.entity), payload)))
 ];
 
 type t = {
@@ -69,7 +70,11 @@ let payload = (payload, request) =>
   | `Form _ => {
     ...request |> header(`ContentType(Mime.form)),
     body: Some(payload)
+  }
 
+  | `Multipart(boundary, _) => {
+    ...request |> header(`ContentType(Mime.multipart(boundary))),
+    body: Some(payload)
   }
 /*
   | `Dict body => 
@@ -106,6 +111,30 @@ let _buildUrl = (url, params) => {
   {j|$url?$params|j}
 };
 
+let rec _stringifyPayload: payload => string =
+  fun | `String content =>
+        content
+
+      | `Json content =>
+        content |> Js.Json.stringify
+
+      | `Form pairs =>
+        pairs |> List.map(((k, v)) => {j|$k=$v|j})
+              |> Utils.List.reduceOr("", (acc, item) => {j|$acc&$item|j})
+
+      | `Multipart(boundary, parts) =>
+        parts |> List.map(((headers, payload)) => {
+                 let headers = headers |> List.map((h) => Headers._stringifyHeader(h))
+                                       |> List.reduce((acc, h) => acc ++ h ++ "\n", "");
+                 let payload = payload |> _stringifyPayload;
+{j|$headers
+$payload
+--$boundary
+|j}
+              })
+              |> List.reduce((acc, p) => "\n" ++ acc ++ p, {j|--$boundary\n|j})
+;
+
 let _toFetchRequest = (request) =>
   Fetch.Request.makeWithInit(
     _buildUrl(request.url, request.queryParams),
@@ -114,21 +143,7 @@ let _toFetchRequest = (request) =>
         _encodeMethod(request.method),
 
       ~body =
-        ?Option.map(
-          fun | `String content =>
-                content |> Fetch.BodyInit.make
-
-              | `Json content =>
-                content |> Js.Json.stringify
-                        |> Fetch.BodyInit.make
-
-              | `Form pairs =>
-                pairs |> List.map(((k, v)) => {j|$k=$v|j})
-                      |> Utils.List.reduceOr("", (acc, item) => {j|$acc&$item|j})
-                      |> Fetch.BodyInit.make
-
-          ,request.body
-        ),
+        ?Option.map((p) => p |> _stringifyPayload |> Fetch.BodyInit.make, request.body),
 
       ~headers =
         request.headers |> List.reverse

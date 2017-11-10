@@ -23,16 +23,12 @@ post("http://httpbin.org/post", `String("datathings"))
 */
 
 /* advanced */
-request(`POST, "http://httpbin.org/post")
-/*equest(`POST, "https://requestb.in/thog7oth")*/
+/*request(`POST, "http://httpbin.org/post")*/
+request(`POST, "https://requestb.in/183okup1")
 /*request(`POST, "http://putsreq.com/FFB540W0YeOnQjBMOKVq")*/
-  |> Request.param("sort", "DESC")
-  |> Request.param("filter", "foo=true")
-  |> Request.basicAuthentication("boo", "yah")
-  |> Request.header(`Authorization(`Bearer("jklcolid")))
-  |> Request.payload(`Form([
-    ("foo", "boo"),
-    ("bar", "far")
+  |> Request.payload(`Multipart("booboo", [
+    ([`ContentType("plain/text"), `ContentDisposition(`Other("form-data"), [`Other("name", "field1"), `Filename("myimage.png")])], `String("foo")),
+    ([`ContentType("application/json"), `ContentDisposition(`Other("form-data"), [`Other("name", "field1")])], `Json(Js.Json.null))
   ]))
 |> fetch
   |> Future.flatMap(
