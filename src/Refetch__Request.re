@@ -83,16 +83,16 @@ let payload = (payload, request) =>
 
 let _encodeMethod =
   Fetch.(
-    fun | `GET => Get
-        | `HEAD => Head
-        | `POST => Post
-        | `PUT => Put
-        | `DELETE => Delete
-        | `CONNECT => Connect
-        | `OPTIONS => Options
-        | `TRACE => Trace
-        | `PATCH => Patch
-        | `OtherMethod(string) => Other(string)
+    fun | `GET => Method.get
+        | `HEAD => Method.head
+        | `POST => Method.post
+        | `PUT => Method.put
+        | `DELETE => Method.delete
+        | `CONNECT => Method.connect
+        | `OPTIONS => Method.options
+        | `TRACE => Method.trace
+        | `PATCH => Method.patch
+        | `OtherMethod(string) => Method.other(string)
   );
 
 [@bs.val] external encodeURIComponent : string => string = "";
@@ -139,7 +139,7 @@ let _toFetchRequest = (request) =>
   Fetch.Request.makeWithInit(
     _buildUrl(request.url, request.queryParams),
     Fetch.RequestInit.make(
-      ~method_ =
+      ~_method =
         _encodeMethod(request.method),
 
       ~body =

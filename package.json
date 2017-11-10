@@ -13,7 +13,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "bs-fetch":"^0.2.0",
+    "bs-fetch":"reasonml-community/bs-fetch#next",
     "reason-rebase": "^0.1.2"
   },
   "devDependencies": {
