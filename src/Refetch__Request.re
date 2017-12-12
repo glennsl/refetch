@@ -61,7 +61,7 @@ let payload = (payload, request) =>
     ...request, /* fetch will set Content-Type to text/plain for us */
     body: Some(payload)
   }
- 
+
   | `Json _ => {
     ...request |> header(`ContentType(Mime.json)),
     body: Some(payload)
@@ -77,7 +77,7 @@ let payload = (payload, request) =>
     body: Some(payload)
   }
 /*
-  | `Dict body => 
+  | `Dict body =>
   */
   };
 
@@ -107,8 +107,11 @@ let _buildUrl = (url, params) => {
   let params =
       params |> List.map(encodeParam)
              |> joinParams;
-  
-  {j|$url?$params|j}
+
+  switch params {
+  | "" => url
+  | _ => {j|$url?$params|j}
+  };
 };
 
 let rec _stringifyPayload: payload => string =
