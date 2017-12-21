@@ -8,8 +8,17 @@
     "test": "bsb -make-world && jest",
     "test:watch": "jest --watchAll"
   },
+  "homepage": "https://github.com/glennsl/refetch#readme",
+  "bugs": "https://github.com/glennsl/refetch/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glennsl/refetch.git"
+  },
   "keywords": [
-    "BuckleScript"
+    "bucklescript",
+    "fetch",
+    "http",
+    "ajax"
   ],
   "license": "MIT",
   "dependencies": {
