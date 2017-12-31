@@ -2,6 +2,7 @@
   "name": "refetch",
   "version": "0.1.0",
   "refmt": 3,
+  "bsc-flags": ["-bs-no-version-header", "-bs-super-errors"],
   "sources": [
     "src", {
       "dir": "examples",
@@ -13,7 +14,7 @@
   ],
   "bs-dependencies" : [
     "bs-fetch",
-    "reason-rebase"
+    "@glennsl/rebase"
   ],
   "bs-dev-dependencies" : [
     "bs-json",

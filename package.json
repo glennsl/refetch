@@ -14,10 +14,10 @@
   "license": "MIT",
   "dependencies": {
     "bs-fetch":"reasonml-community/bs-fetch#next",
-    "reason-rebase": "^0.1.2"
+    "@glennsl/rebase": "^0.2.0"
   },
   "devDependencies": {
-    "bs-platform": "^2.0.0",
+    "bs-platform": "^2.1.0",
     "bs-json": "^0.2.4",
     "bs-jest":"^0.2.0",
     "isomorphic-fetch": "^2.2.1",

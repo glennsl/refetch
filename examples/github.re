@@ -38,7 +38,7 @@ let columnify = (rows) => {
 
   rows |> List.map((columns) =>
           columns |> List.zip(maxLengths)
-                  |> List.map(((l, s)) => String.padEnd(l, " ", s))
+                  |> List.map(((s, l)) => String.padEnd(l, " ", s))
                   |> List.reduce((s, c) => s ++ " " ++ c, ""))
 };
 
