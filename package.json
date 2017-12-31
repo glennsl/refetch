@@ -1,15 +1,26 @@
 {
   "name": "refetch",
+  "description": "A strongly typed and immutable API built on top of the `fetch` standard ",
   "version": "0.1.0",
   "scripts": {
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
     "clean": "bsb -clean-world",
     "test": "bsb -make-world && jest",
-    "test:watch": "jest --watchAll"
+    "watch:jest": "jest --watchAll"
   },
+  "homepage": "https://github.com/glennsl/refetch#readme",
+  "bugs": "https://github.com/glennsl/refetch/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glennsl/refetch.git"
+  },
+  "author": "glennsl",
   "keywords": [
-    "BuckleScript"
+    "reason",
+    "bucklescript",
+    "fetch",
+    "http"
   ],
   "license": "MIT",
   "dependencies": {

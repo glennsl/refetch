@@ -1,4 +1,4 @@
-# refetch
+# re:fetch
 
 Refetch is a strongly typed and immutable API built on top of the `fetch` standard. It is also incomplete, highly experimental and prone to change.
 
