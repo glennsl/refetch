@@ -1,12 +1,12 @@
 /* abstracted away by fetch
-type informationalCode = [
+type informational = [
   | `Continue
   | `SwitchingProtocols
   | `Processing
 ];
 */
 
-type successCode = [
+type success = [
   | `OK
   | `Created
   | `Accepted
@@ -20,7 +20,7 @@ type successCode = [
 ];
 
 /* abstracted away by fetch
-type redirectionCode = [
+type redirection = [
   | `MultipleChoices
   | `MovedPermanently
   | `Found
@@ -33,7 +33,7 @@ type redirectionCode = [
 ];
 */
 
-type clientErrorCode = [
+type clientError = [
   | `BadRequest
   | `Unauthorized
   | `PaymentRequired
@@ -64,7 +64,7 @@ type clientErrorCode = [
   | `UnavailableForLegalReasons
 ];
 
-type serverErrorCode = [
+type serverError = [
   | `InternalServerError
   | `NotImplemented
   | `BadGateway
@@ -79,9 +79,9 @@ type serverErrorCode = [
 ];
 
 type code = [
-  | successCode
-  | clientErrorCode
-  | serverErrorCode
+  | success
+  | clientError
+  | serverError
   | `Unknown(int)
 ];
 

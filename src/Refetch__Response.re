@@ -10,23 +10,23 @@ type state =
   | Ok(Status.t, t)
   | Error(Status.t, t);
 
-let _getStatus = (response) => Status.{
+let _getStatus = response => Status.{
   code:   response |> Fetch.Response.status
                    |> Status.codeFromInt,
 
   reason: response |> Fetch.Response.statusText
 };
 
-let _make = (res) => {
+let _make = res => {
   let status = _getStatus(res);
 
-  switch (Fetch.Response.status(res)) {
-  | n when n >= 200 && n <= 299 => Ok(status, res)
-  | _ => Error(status, res)
+  switch (status.code) {
+  | #Status.success => Ok(status, res)
+  | _               => Error(status, res)
   }
 };
 
-let body = (response) =>
+let body = response =>
   response |> Fetch.Response.body;
 
 /* Not supported by node-fetch?
@@ -39,10 +39,10 @@ let blob = (response) =>
            |> Resync.Future.fromJSPromise;
 */
 
-let text = (response) =>
+let text = response =>
   response |> Fetch.Response.text
            |> Resync.Future.fromJSPromise;
 
-let json = (response) =>
+let json = response =>
   response |> Fetch.Response.json
            |> Resync.Future.fromJSPromise;
