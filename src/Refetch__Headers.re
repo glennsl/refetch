@@ -221,7 +221,7 @@ let _pairifyHeader =
         let value =
           params |> List.map (
                     fun | `Filename(filename) => {j|filename="$filename"|j}
-                        | `Other(key, value) => {j|$key="$value"|j})
+                        | `Other(key, value)  => {j|$key="$value"|j})
                  |> List.reduce((acc, p) => {j|$acc; $p|j}, typ);
 
         ("Content-Disposition", value)
@@ -235,16 +235,16 @@ let _pairifyHeader =
         
       | `Raw(name, value) => (name, value)
       | _ => failwith("TODO");
-let _pairifyHeader: [< t] => _ = (h) =>
+let _pairifyHeader: [< t] => _ = h =>
   _pairifyHeader(h :> t);
 
 let _stringifyPair = ((name, value)) =>
   {j|$name: $value|j};
 
-let _stringifyHeader = (header) =>
+let _stringifyHeader = header =>
   header |> _pairifyHeader |> _stringifyPair;
 
-let _encode = (headers) =>
+let _encode = headers =>
   headers |> List.map(_pairifyHeader)
           |> Js.Dict.fromList
           |> Obj.magic

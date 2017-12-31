@@ -12,14 +12,12 @@ open Refetch;
 
 get("http://httpbin.org/image/png")
 |> Future.map(
-    fun | Response.Ok(_, response) => {
-          Response.body(response)
-        }
+    fun | Response.Ok(_, response)      => Response.body(response)
         | Response.Error({ reason }, _) => failwith(reason))
+
 |> Future.whenCompleted(
    fun | Ok(stream) =>
          streamToBuffer(stream, (_, buffer) =>
            stringifyPng(buffer, (_, string) => Js.log(string)))
-
-       | Error(e) => Js.log(e)
+       | Error(e)   => Js.log(e)
 );

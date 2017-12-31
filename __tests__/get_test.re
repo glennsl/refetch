@@ -10,12 +10,12 @@ describe("get", () => {
 
   afterAll(() => Nock.restore(scope));
 
-  testAsync("get", (done_) => {
+  testAsync("get", finish => {
     let _: Nock.scope = scope |> Nock.get("/") |> Nock.reply(200, { "foo": 42 });
 
     Resync.(Refetch.(
       get("http://example.com")
-      |> Future.whenResolved((_) => done_(expect(Nock.isDone(scope)) |> toBe(true)))
+      |> Future.whenResolved(_r => finish(expect(Nock.isDone(scope)) |> toBe(true)))
     ));
   })
 });

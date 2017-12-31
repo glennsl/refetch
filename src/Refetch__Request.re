@@ -101,12 +101,9 @@ let _buildUrl = (url, params) => {
   let encodeParam = ((key, value)) =>
     encodeURIComponent(key) ++ "=" ++ encodeURIComponent(value);
 
-  let joinParams = (params) =>
-    params |> Utils.List.reduceOr("", (acc, param) => {j|$acc&$param|j});
-
   let params =
       params |> List.map(encodeParam)
-             |> joinParams;
+             |> String.joinWith("&");
 
   switch params {
   | "" => url
@@ -123,11 +120,11 @@ let rec _stringifyPayload: payload => string =
 
       | `Form pairs =>
         pairs |> List.map(((k, v)) => {j|$k=$v|j})
-              |> Utils.List.reduceOr("", (acc, item) => {j|$acc&$item|j})
+              |> String.joinWith("&")
 
       | `Multipart(boundary, parts) =>
         parts |> List.map(((headers, payload)) => {
-                 let headers = headers |> List.map((h) => Headers._stringifyHeader(h))
+                 let headers = headers |> List.map(Headers._stringifyHeader)
                                        |> List.reduce((acc, h) => acc ++ h ++ "\n", "");
                  let payload = payload |> _stringifyPayload;
 {j|$headers
@@ -138,7 +135,7 @@ $payload
               |> List.reduce((acc, p) => "\n" ++ acc ++ p, {j|--$boundary\n|j})
 ;
 
-let _toFetchRequest = (request) =>
+let _toFetchRequest = request =>
   Fetch.Request.makeWithInit(
     _buildUrl(request.url, request.queryParams),
     Fetch.RequestInit.make(
@@ -146,7 +143,7 @@ let _toFetchRequest = (request) =>
         _encodeMethod(request.method),
 
       ~body =
-        ?Option.map((p) => p |> _stringifyPayload |> Fetch.BodyInit.make, request.body),
+        ?Option.map(Fn.(_stringifyPayload >> Fetch.BodyInit.make), request.body),
 
       ~headers =
         request.headers |> List.reverse

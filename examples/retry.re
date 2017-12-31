@@ -7,9 +7,8 @@ let rec retryGet =
   fun | 0 => Future.from("rety failed")
       | n => get("https://httpbin.org/status/400")
                |> Future.flatMap(
-                  fun | Response.Ok(_, _) => {
+                  fun | Response.Ok(_, _) =>
                         Future.from("Wat!? It worked?")
-                      }
 
                       | Response.Error(_, _) => {
                         Js.log("Uh, oh, an error occurred. Retrying...");

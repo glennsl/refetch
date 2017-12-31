@@ -7,39 +7,39 @@ module Utils = Refetch__Utils;
 exception FetchError(string);
 
 type repo = {
-  name: string,
-  description: option(string),
-  stars: int,
-  forks: int,
-  openIssues: int
+  name:         string,
+  description:  option(string),
+  stars:        int,
+  forks:        int,
+  openIssues:   int
 };
 
 module Decode = {
   open Json.Decode;
 
-  let repo = (json) => {
-    name: json |> field("name", string),
-    description: json |> field("description", optional(string)),
-    stars: json |> field("stargazers_count", int),
-    forks: json |> field("forks_count", int),
-    openIssues: json |> field("open_issues_count", int),
+  let repo = json => {
+    name:         json |> field("name", string),
+    description:  json |> field("description", optional(string)),
+    stars:        json |> field("stargazers_count", int),
+    forks:        json |> field("forks_count", int),
+    openIssues:   json |> field("open_issues_count", int),
   };
 
-  let repos = (json) =>
-    json  |> list(repo);
+  let repos =
+    list(repo);
 };
 
-let columnify = (rows) => {
+let columnify = rows => {
   let maxLengths =
-    rows |> List.map((columns) => columns |> List.map(String.length))
+    rows |> List.map(List.map(String.length))
          |> Utils.List.reduceOr([], (maxs, lengths) =>
             lengths |> List.zip(maxs) 
-                    |> List.map(((a, b)) => Js.Math.max_int(a, b)));
+                    |> List.map(Js.Math.max_int |> Fn.uncurry));
 
-  rows |> List.map((columns) =>
-          columns |> List.zip(maxLengths)
-                  |> List.map(((s, l)) => String.padEnd(l, " ", s))
-                  |> List.reduce((s, c) => s ++ " " ++ c, ""))
+  rows |> List.map(
+            Fn.( List.zip(maxLengths)
+              >> List.map(((s, l)) => String.padEnd(l, " ", s))
+              >> List.reduce((s, c) => s ++ " " ++ c, "")))
 };
 
 let getRepos = () =>
@@ -55,16 +55,16 @@ let getRepos = () =>
     |> Future.map(Decode.repos)
   );
 
-let printRepos = (repos) => {
+let printRepos = repos => {
   let headers =
-    repos |> List.map((repo) => [
+    repos |> List.map(repo => [
                repo.name,
                Option.getOr("N/A", repo.description)
              ])
           |> columnify;
   
   let stats = 
-    repos |> List.map((repo) => [
+    repos |> List.map(repo => [
                string_of_int(repo.stars), "stars   ",
                string_of_int(repo.forks), "forks   ",
                string_of_int(repo.openIssues), "open issues"
