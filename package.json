@@ -13,15 +13,15 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "bs-fetch":"reasonml-community/bs-fetch#next",
+    "bs-fetch": "reasonml-community/bs-fetch#next",
     "@glennsl/rebase": "^0.2.0"
   },
   "devDependencies": {
+    "bs-jest": "^0.3.1",
+    "bs-json": "^1.0.0",
     "bs-platform": "^2.1.0",
-    "bs-json": "^0.2.4",
-    "bs-jest":"^0.2.0",
-    "isomorphic-fetch": "^2.2.1",
     "debug-http": "^1.1.0",
-    "nock": "^9.1.0"
+    "isomorphic-fetch": "^2.2.1",
+    "nock": "^9.1.5"
   }
 }
