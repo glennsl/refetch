@@ -2,6 +2,10 @@
 
 Refetch is a strongly typed and immutable API built on top of the `fetch` standard. It is also incomplete, highly experimental and prone to change.
 
+[![Dependencies](https://img.shields.io/david/glennsl/refetch.svg)]()
+[![Issues](https://img.shields.io/github/issues/glennsl/refetch.svg)](https://github.com/glennsl/refetch/issues)
+[![Last Commit](https://img.shields.io/github/last-commit/glennsl/refetch.svg)]()
+
 ## Example
 
 ```reason
