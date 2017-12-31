@@ -20,7 +20,8 @@
     "reason",
     "bucklescript",
     "fetch",
-    "http"
+    "http",
+    "ajax"
   ],
   "license": "MIT",
   "dependencies": {
