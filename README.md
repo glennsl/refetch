@@ -6,6 +6,10 @@ Refetch is a strongly typed and immutable API built on top of the `fetch` standa
 [![Issues](https://img.shields.io/github/issues/glennsl/refetch.svg)](https://github.com/glennsl/refetch/issues)
 [![Last Commit](https://img.shields.io/github/last-commit/glennsl/refetch.svg)]()
 
+## Installation
+
+Run `npm install --save glennsl/refetch` and add `refetch` to the `bs-dependencies` in `bsconfig.json`. 
+
 ## Example
 
 ```reason
