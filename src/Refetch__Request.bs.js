@@ -1,10 +1,10 @@
 'use strict';
 
 var Curry            = require("bs-platform/lib/js/curry.js");
-var Fetch            = require("bs-fetch/lib/js/src/Fetch.js");
-var Rebase           = require("@glennsl/rebase/lib/js/src/Rebase.bs.js");
-var Refetch__Mime    = require("./Refetch__Mime.js");
-var Refetch__Headers = require("./Refetch__Headers.js");
+var Fetch            = require("bs-fetch/src/Fetch.js");
+var Rebase           = require("@glennsl/rebase/src/Rebase.bs.js");
+var Refetch__Mime    = require("./Refetch__Mime.bs.js");
+var Refetch__Headers = require("./Refetch__Headers.bs.js");
 
 function make(method_, $staropt$star, $staropt$star$1, body, url) {
   var queryParams = $staropt$star ? $staropt$star[0] : /* [] */0;

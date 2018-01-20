@@ -1,6 +1,6 @@
 'use strict';
 
-var Rebase = require("@glennsl/rebase/lib/js/src/Rebase.bs.js");
+var Rebase = require("@glennsl/rebase/src/Rebase.bs.js");
 
 var btoa = (
   function () {

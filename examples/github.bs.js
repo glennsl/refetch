@@ -1,14 +1,14 @@
 'use strict';
 
 var Curry             = require("bs-platform/lib/js/curry.js");
-var Rebase            = require("@glennsl/rebase/lib/js/src/Rebase.bs.js");
-var Resync            = require("../src/Resync.js");
-var Refetch           = require("../src/Refetch.js");
+var Rebase            = require("@glennsl/rebase/src/Rebase.bs.js");
+var Resync            = require("../src/Resync.bs.js");
+var Refetch           = require("../src/Refetch.bs.js");
 var Pervasives        = require("bs-platform/lib/js/pervasives.js");
-var Json_decode       = require("bs-json/lib/js/src/Json_decode.js");
-var Refetch__Utils    = require("../src/Refetch__Utils.js");
+var Json_decode       = require("bs-json/src/Json_decode.js");
+var Refetch__Utils    = require("../src/Refetch__Utils.bs.js");
 var Caml_exceptions   = require("bs-platform/lib/js/caml_exceptions.js");
-var Refetch__Response = require("../src/Refetch__Response.js");
+var Refetch__Response = require("../src/Refetch__Response.bs.js");
 
 require('isomorphic-fetch')
 ;

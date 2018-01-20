@@ -1,10 +1,10 @@
 'use strict';
 
 var Curry          = require("bs-platform/lib/js/curry.js");
-var Rebase         = require("@glennsl/rebase/lib/js/src/Rebase.bs.js");
+var Rebase         = require("@glennsl/rebase/src/Rebase.bs.js");
 var Js_dict        = require("bs-platform/lib/js/js_dict.js");
 var Pervasives     = require("bs-platform/lib/js/pervasives.js");
-var Refetch__Utils = require("./Refetch__Utils.js");
+var Refetch__Utils = require("./Refetch__Utils.bs.js");
 
 function _pairifyHeader(h) {
   var param = h;

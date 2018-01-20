@@ -2,9 +2,9 @@
 
 var Block           = require("bs-platform/lib/js/block.js");
 var Curry           = require("bs-platform/lib/js/curry.js");
-var Rebase          = require("@glennsl/rebase/lib/js/src/Rebase.bs.js");
-var Resync          = require("./Resync.js");
-var Refetch__Status = require("./Refetch__Status.js");
+var Rebase          = require("@glennsl/rebase/src/Rebase.bs.js");
+var Resync          = require("./Resync.bs.js");
+var Refetch__Status = require("./Refetch__Status.bs.js");
 
 function _getStatus(response) {
   return /* record */[

@@ -1,10 +1,10 @@
 'use strict';
 
-var Jest    = require("bs-jest/lib/js/src/jest.js");
+var Jest    = require("bs-jest/src/jest.js");
 var Nock    = require("nock");
 var Curry   = require("bs-platform/lib/js/curry.js");
-var Resync  = require("../src/Resync.js");
-var Refetch = require("../src/Refetch.js");
+var Resync  = require("../src/Resync.bs.js");
+var Refetch = require("../src/Refetch.bs.js");
 
 require('isomorphic-fetch')
 ;

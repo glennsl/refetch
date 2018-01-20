@@ -1,11 +1,11 @@
 'use strict';
 
-var Resync            = require("../src/Resync.js");
-var Refetch           = require("../src/Refetch.js");
+var Resync            = require("../src/Resync.bs.js");
+var Refetch           = require("../src/Refetch.bs.js");
 var Pervasives        = require("bs-platform/lib/js/pervasives.js");
 var ConsolePng        = require("console-png");
 var StreamToBuffer    = require("stream-to-buffer");
-var Refetch__Response = require("../src/Refetch__Response.js");
+var Refetch__Response = require("../src/Refetch__Response.bs.js");
 
 require('isomorphic-fetch')
 ;

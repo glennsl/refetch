@@ -1,8 +1,8 @@
 'use strict';
 
-var Resync            = require("./Resync.js");
-var Refetch__Request  = require("./Refetch__Request.js");
-var Refetch__Response = require("./Refetch__Response.js");
+var Resync            = require("./Resync.bs.js");
+var Refetch__Request  = require("./Refetch__Request.bs.js");
+var Refetch__Response = require("./Refetch__Response.bs.js");
 
 function fetch$1(request) {
   return Resync.Future[/* fromJSPromise */10](fetch(Refetch__Request._toFetchRequest(request)).then((function (res) {

@@ -1,7 +1,7 @@
 'use strict';
 
-var Resync  = require("../src/Resync.js");
-var Refetch = require("../src/Refetch.js");
+var Resync  = require("../src/Resync.bs.js");
+var Refetch = require("../src/Refetch.bs.js");
 
 require('isomorphic-fetch')
 ;

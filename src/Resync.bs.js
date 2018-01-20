@@ -2,7 +2,7 @@
 
 var Block  = require("bs-platform/lib/js/block.js");
 var Curry  = require("bs-platform/lib/js/curry.js");
-var Rebase = require("@glennsl/rebase/lib/js/src/Rebase.bs.js");
+var Rebase = require("@glennsl/rebase/src/Rebase.bs.js");
 
 function _dispatch(f, value) {
   return Curry._1(f, value);
