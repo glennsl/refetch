@@ -1,7 +1,7 @@
 'use strict';
 
 var Curry            = require("bs-platform/lib/js/curry.js");
-var Fetch            = require("bs-fetch/src/Fetch.js");
+var Fetch            = require("bs-fetch/src/Fetch.bs.js");
 var Rebase           = require("@glennsl/rebase/src/Rebase.bs.js");
 var Refetch__Mime    = require("./Refetch__Mime.bs.js");
 var Refetch__Headers = require("./Refetch__Headers.bs.js");
