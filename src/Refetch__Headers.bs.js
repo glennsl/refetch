@@ -1,9 +1,9 @@
 'use strict';
 
-var Curry          = require("bs-platform/lib/js/curry.js");
-var Rebase         = require("@glennsl/rebase/src/Rebase.bs.js");
-var Js_dict        = require("bs-platform/lib/js/js_dict.js");
-var Pervasives     = require("bs-platform/lib/js/pervasives.js");
+var Curry = require("bs-platform/lib/js/curry.js");
+var Rebase = require("@glennsl/rebase/src/Rebase.bs.js");
+var Js_dict = require("bs-platform/lib/js/js_dict.js");
+var Pervasives = require("bs-platform/lib/js/pervasives.js");
 var Refetch__Utils = require("./Refetch__Utils.bs.js");
 
 function _pairifyHeader(h) {
@@ -26,7 +26,7 @@ function _pairifyHeader(h) {
         } else {
           return /* tuple */[
                   "Content-Length",
-                  Pervasives.string_of_int(param[1])
+                  String(param[1])
                 ];
         }
       } else {
@@ -96,11 +96,11 @@ var Mime = 0;
 
 var Utils = 0;
 
-exports.Cookie           = Cookie;
-exports.Mime             = Mime;
-exports.Utils            = Utils;
-exports._pairifyHeader   = _pairifyHeader;
-exports._stringifyPair   = _stringifyPair;
+exports.Cookie = Cookie;
+exports.Mime = Mime;
+exports.Utils = Utils;
+exports._pairifyHeader = _pairifyHeader;
+exports._stringifyPair = _stringifyPair;
 exports._stringifyHeader = _stringifyHeader;
-exports._encode          = _encode;
+exports._encode = _encode;
 /* Js_dict Not a pure module */

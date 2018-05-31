@@ -1,13 +1,12 @@
 'use strict';
 
-var Curry             = require("bs-platform/lib/js/curry.js");
-var Rebase            = require("@glennsl/rebase/src/Rebase.bs.js");
-var Resync            = require("../src/Resync.bs.js");
-var Refetch           = require("../src/Refetch.bs.js");
-var Pervasives        = require("bs-platform/lib/js/pervasives.js");
-var Json_decode       = require("bs-json/src/Json_decode.js");
-var Refetch__Utils    = require("../src/Refetch__Utils.bs.js");
-var Caml_exceptions   = require("bs-platform/lib/js/caml_exceptions.js");
+var Curry = require("bs-platform/lib/js/curry.js");
+var Rebase = require("@glennsl/rebase/src/Rebase.bs.js");
+var Resync = require("../src/Resync.bs.js");
+var Refetch = require("../src/Refetch.bs.js");
+var Json_decode = require("bs-json/src/Json_decode.js");
+var Refetch__Utils = require("../src/Refetch__Utils.bs.js");
+var Caml_exceptions = require("bs-platform/lib/js/caml_exceptions.js");
 var Refetch__Response = require("../src/Refetch__Response.bs.js");
 
 require('isomorphic-fetch')
@@ -87,15 +86,15 @@ function printRepos(repos) {
             }), repos));
   var stats = columnify(Rebase.List[/* map */0]((function (repo) {
               return /* :: */[
-                      Pervasives.string_of_int(repo[/* stars */2]),
+                      String(repo[/* stars */2]),
                       /* :: */[
                         "stars   ",
                         /* :: */[
-                          Pervasives.string_of_int(repo[/* forks */3]),
+                          String(repo[/* forks */3]),
                           /* :: */[
                             "forks   ",
                             /* :: */[
-                              Pervasives.string_of_int(repo[/* openIssues */4]),
+                              String(repo[/* openIssues */4]),
                               /* :: */[
                                 "open issues",
                                 /* [] */0
@@ -125,10 +124,10 @@ Resync.Future[/* whenCompleted */6]((function (param) {
 
 var Utils = 0;
 
-exports.Utils      = Utils;
+exports.Utils = Utils;
 exports.FetchError = FetchError;
-exports.Decode     = Decode;
-exports.columnify  = columnify;
-exports.getRepos   = getRepos;
+exports.Decode = Decode;
+exports.columnify = columnify;
+exports.getRepos = getRepos;
 exports.printRepos = printRepos;
 /*  Not a pure module */

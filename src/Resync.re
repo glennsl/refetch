@@ -1,7 +1,7 @@
 open! Rebase;
 
 module Promise = {
-  type result('a) = Js.Result.t('a, exn);
+  type result('a) = Belt.Result.t('a, exn);
   type t('a) = {
     mutable value: option(result('a)),
     mutable callbacks: list(result('a) => unit)

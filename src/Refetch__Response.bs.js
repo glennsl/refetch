@@ -1,9 +1,9 @@
 'use strict';
 
-var Block           = require("bs-platform/lib/js/block.js");
-var Curry           = require("bs-platform/lib/js/curry.js");
-var Rebase          = require("@glennsl/rebase/src/Rebase.bs.js");
-var Resync          = require("./Resync.bs.js");
+var Block = require("bs-platform/lib/js/block.js");
+var Curry = require("bs-platform/lib/js/curry.js");
+var Rebase = require("@glennsl/rebase/src/Rebase.bs.js");
+var Resync = require("./Resync.bs.js");
 var Refetch__Status = require("./Refetch__Status.bs.js");
 
 function _getStatus(response) {
@@ -125,12 +125,12 @@ var Headers = 0;
 
 var Status = 0;
 
-exports.Body       = Body;
-exports.Headers    = Headers;
-exports.Status     = Status;
+exports.Body = Body;
+exports.Headers = Headers;
+exports.Status = Status;
 exports._getStatus = _getStatus;
-exports._make      = _make;
-exports.body       = body;
-exports.text       = text;
-exports.json       = json;
+exports._make = _make;
+exports.body = body;
+exports.text = text;
+exports.json = json;
 /* text Not a pure module */

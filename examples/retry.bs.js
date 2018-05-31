@@ -1,6 +1,6 @@
 'use strict';
 
-var Resync  = require("../src/Resync.bs.js");
+var Resync = require("../src/Resync.bs.js");
 var Refetch = require("../src/Refetch.bs.js");
 
 require('isomorphic-fetch')

@@ -1,7 +1,7 @@
 'use strict';
 
-var Block  = require("bs-platform/lib/js/block.js");
-var Curry  = require("bs-platform/lib/js/curry.js");
+var Block = require("bs-platform/lib/js/block.js");
+var Curry = require("bs-platform/lib/js/curry.js");
 var Rebase = require("@glennsl/rebase/src/Rebase.bs.js");
 
 function _dispatch(f, value) {
@@ -134,5 +134,5 @@ var Future = /* module */[
 ];
 
 exports.Promise = Promise$1;
-exports.Future  = Future;
+exports.Future = Future;
 /* No side effect */

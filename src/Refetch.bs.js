@@ -1,7 +1,7 @@
 'use strict';
 
-var Resync            = require("./Resync.bs.js");
-var Refetch__Request  = require("./Refetch__Request.bs.js");
+var Resync = require("./Resync.bs.js");
+var Refetch__Request = require("./Refetch__Request.bs.js");
 var Refetch__Response = require("./Refetch__Response.bs.js");
 
 function fetch$1(request) {
@@ -28,12 +28,12 @@ var Request = 0;
 
 var request = Refetch__Request.make;
 
-exports.Body     = Body;
-exports.Headers  = Headers;
+exports.Body = Body;
+exports.Headers = Headers;
 exports.Response = Response;
-exports.Request  = Request;
-exports.request  = request;
-exports.fetch    = fetch$1;
-exports.get      = get;
-exports.post     = post;
+exports.Request = Request;
+exports.request = request;
+exports.fetch = fetch$1;
+exports.get = get;
+exports.post = post;
 /* Refetch__Request Not a pure module */

@@ -1,9 +1,9 @@
 'use strict';
 
-var Jest    = require("bs-jest/src/jest.js");
-var Nock    = require("nock");
-var Curry   = require("bs-platform/lib/js/curry.js");
-var Resync  = require("../src/Resync.bs.js");
+var Jest = require("bs-jest/src/jest.js");
+var Nock = require("nock");
+var Curry = require("bs-platform/lib/js/curry.js");
+var Resync = require("../src/Resync.bs.js");
 var Refetch = require("../src/Refetch.bs.js");
 
 require('isomorphic-fetch')
@@ -22,7 +22,7 @@ describe("get", (function () {
                             foo: 42
                           });
                       return Resync.Future[/* whenResolved */7]((function () {
-                                    return Curry._1(finish, Jest.Expect[/* toBe */2](/* true */1, Jest.Expect[/* expect */0](+scope.isDone())));
+                                    return Curry._1(finish, Jest.Expect[/* toBe */2](true, Jest.Expect[/* expect */0](scope.isDone())));
                                   }), Refetch.get("http://example.com"));
                     }));
       }));

@@ -1,9 +1,9 @@
 'use strict';
 
-var Curry            = require("bs-platform/lib/js/curry.js");
-var Fetch            = require("bs-fetch/src/Fetch.bs.js");
-var Rebase           = require("@glennsl/rebase/src/Rebase.bs.js");
-var Refetch__Mime    = require("./Refetch__Mime.bs.js");
+var Curry = require("bs-platform/lib/js/curry.js");
+var Fetch = require("bs-fetch/src/Fetch.bs.js");
+var Rebase = require("@glennsl/rebase/src/Rebase.bs.js");
+var Refetch__Mime = require("./Refetch__Mime.bs.js");
 var Refetch__Headers = require("./Refetch__Headers.bs.js");
 
 function make(method_, $staropt$star, $staropt$star$1, body, url) {
@@ -198,17 +198,17 @@ var Mime = 0;
 
 var Utils = 0;
 
-exports.Body                = Body;
-exports.Headers             = Headers;
-exports.Mime                = Mime;
-exports.Utils               = Utils;
-exports.make                = make;
-exports.param               = param;
-exports.header              = header;
+exports.Body = Body;
+exports.Headers = Headers;
+exports.Mime = Mime;
+exports.Utils = Utils;
+exports.make = make;
+exports.param = param;
+exports.header = header;
 exports.basicAuthentication = basicAuthentication;
-exports.payload             = payload;
-exports._encodeMethod       = _encodeMethod;
-exports._buildUrl           = _buildUrl;
-exports._stringifyPayload   = _stringifyPayload;
-exports._toFetchRequest     = _toFetchRequest;
+exports.payload = payload;
+exports._encodeMethod = _encodeMethod;
+exports._buildUrl = _buildUrl;
+exports._stringifyPayload = _stringifyPayload;
+exports._toFetchRequest = _toFetchRequest;
 /* Refetch__Headers Not a pure module */

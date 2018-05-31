@@ -365,6 +365,6 @@ function codeFromInt(param) {
   }
 }
 
-exports.codeToInt   = codeToInt;
+exports.codeToInt = codeToInt;
 exports.codeFromInt = codeFromInt;
 /* No side effect */

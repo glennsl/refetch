@@ -1,9 +1,9 @@
 'use strict';
 
-var Curry             = require("bs-platform/lib/js/curry.js");
-var Resync            = require("../src/Resync.bs.js");
-var Refetch           = require("../src/Refetch.bs.js");
-var Refetch__Request  = require("../src/Refetch__Request.bs.js");
+var Curry = require("bs-platform/lib/js/curry.js");
+var Resync = require("../src/Resync.bs.js");
+var Refetch = require("../src/Refetch.bs.js");
+var Refetch__Request = require("../src/Refetch__Request.bs.js");
 var Refetch__Response = require("../src/Refetch__Response.bs.js");
 
 require('isomorphic-fetch')
