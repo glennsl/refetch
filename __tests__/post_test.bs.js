@@ -1,6 +1,6 @@
 'use strict';
 
-var Jest = require("bs-jest/src/jest.js");
+var Jest = require("@glennsl/bs-jest/src/jest.js");
 var Nock = require("nock");
 var Curry = require("bs-platform/lib/js/curry.js");
 var Resync = require("../src/Resync.bs.js");
@@ -17,7 +17,7 @@ describe("get", (function () {
                 scope.restore();
                 return /* () */0;
               }));
-        return Jest.testAsync("get", (function (finish) {
+        return Jest.testAsync(/* None */0, "get", (function (finish) {
                       scope.post("/").reply(200, {
                             foo: 42
                           });

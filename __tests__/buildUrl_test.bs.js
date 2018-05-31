@@ -1,6 +1,6 @@
 'use strict';
 
-var Jest = require("bs-jest/src/jest.js");
+var Jest = require("@glennsl/bs-jest/src/jest.js");
 var Refetch__Request = require("../src/Refetch__Request.bs.js");
 
 describe("_buildUrl", (function () {

@@ -22,7 +22,7 @@
     "@glennsl/rebase"
   ],
   "bs-dev-dependencies" : [
-    "bs-json",
-    "bs-jest"
+    "@glennsl/bs-json",
+    "@glennsl/bs-jest"
   ]
 }

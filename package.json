@@ -1,7 +1,7 @@
 {
   "name": "refetch",
   "description": "A strongly typed and immutable API built on top of the `fetch` standard ",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
@@ -25,16 +25,16 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "bs-fetch": "reasonml-community/bs-fetch#next",
-    "@glennsl/rebase": "^0.2.0"
+    "@glennsl/rebase": "^0.2.1",
+    "bs-fetch": "github:reasonml-community/bs-fetch#next"
   },
   "devDependencies": {
-    "bs-jest": "^0.3.1",
-    "bs-json": "^1.0.0",
+    "@glennsl/bs-jest": "^0.4.2",
+    "@glennsl/bs-json": "^2.0.0",
     "bs-platform": "^3.1.4",
     "debug-http": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",
-    "nock": "^9.1.5"
+    "nock": "^9.3.0"
   },
   "peerDependencies": {
     "bs-platform": "^3.1.4"
